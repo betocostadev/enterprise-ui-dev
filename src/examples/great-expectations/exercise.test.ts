@@ -67,61 +67,66 @@ describe('Kanban Board', () => {
 });
 
 describe('Person', () => {
-  it.todo('will create a person with a first name', () => {
+  it('will create a person with a first name', () => {
     const person = new Person('Madonna');
     expect.hasAssertions();
     // Verify that person.firstName is correct.
+    expect(person.firstName).toBe('Madonna');
   });
 
-  it.todo('will create a person with a first and last name', () => {
+  it('will create a person with a first and last name', () => {
     const person = new Person('Madonna Cicone');
     expect.hasAssertions();
+    expect(person.firstName).toBe('Madonna');
     // Verify that person.lastName is correct.
+    expect(person.lastName).toBe('Cicone');
   });
 
-  it.todo('will create a person with a first, middle, and last name', () => {
+  it('will create a person with a first, middle, and last name', () => {
     const person = new Person('Madonna Louise Cicone');
     expect.hasAssertions();
     // Verify that person.middleName is correct.
+    expect(person.middleName).toBe('Louise');
   });
 
-  it.todo('will throw if you provide an empty string', () => {
+  it('will throw if you provide an empty string', () => {
     const fn = () => {
       new Person('');
     };
 
     expect.hasAssertions();
+    expect(() => fn()).toThrowError('fullName cannot be an empty string.');
 
     // Verify that function above throws.
   });
 
-  it.todo(
-    'will throw a specific error message if you provide an empty string',
-    () => {
-      const errorMessage = 'fullName cannot be an empty string';
+  it('will throw a specific error message if you provide an empty string', () => {
+    const errorMessage = 'fullName cannot be an empty string';
 
-      const fn = () => {
-        new Person('');
-      };
+    const fn = () => {
+      new Person('');
+    };
 
-      expect.hasAssertions();
+    expect(() => fn()).toThrowError(errorMessage);
+    expect.hasAssertions();
 
-      // Verify that function above throws the error message above.
-    },
-  );
+    // Verify that function above throws the error message above.
+  });
 
-  it.todo('will add a friend', () => {
+  it('will add a friend', () => {
     const john = new Person('John Lennon');
     const paul = new Person('Paul McCartney');
 
     john.addFriend(paul);
 
     expect.hasAssertions();
+
+    expect(john.friends).toContain(paul);
 
     // Verify that john.friends contains paul.
   });
 
-  it.todo('will mutually add a friend', () => {
+  it('will mutually add a friend', () => {
     const john = new Person('John Lennon');
     const paul = new Person('Paul McCartney');
 
@@ -129,27 +134,36 @@ describe('Person', () => {
 
     expect.hasAssertions();
 
+    expect(john.friends).toContain(paul);
+    expect(paul.friends).toContain(john);
+
     // Verify that paul.friends contains john.
   });
 
-  it.todo('will remove a friend', () => {
+  it('will remove a friend', () => {
     const john = new Person('John Lennon');
     const paul = new Person('Paul McCartney');
 
     john.addFriend(paul);
     john.removeFriend(paul);
+
+    // expect(john.friends).toContain(paul);
+    expect(john.friends).not.toContain(paul);
 
     expect.hasAssertions();
 
     // Verify that john.friends does not include paul.
   });
 
-  it.todo('will mutually remove friends', () => {
+  it('will mutually remove friends', () => {
     const john = new Person('John Lennon');
     const paul = new Person('Paul McCartney');
 
     john.addFriend(paul);
     john.removeFriend(paul);
+
+    expect(john.friends).not.toContain(paul);
+    expect(paul.friends).not.toContain(john);
 
     expect.hasAssertions();
 
@@ -162,11 +176,11 @@ const explode = () => {
 };
 
 describe('explode', () => {
-  it.todo('should throw an error', () => {
-    explode();
+  it('should throw an error', () => {
+    expect(() => explode()).toThrow();
   });
 
-  it.todo('should throw a specific error containing "terribly wrong"', () => {
-    explode();
+  it('should throw a specific error containing "terribly wrong"', () => {
+    expect(() => explode()).toThrowError('terribly wrong');
   });
 });
